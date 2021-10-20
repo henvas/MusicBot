@@ -1,5 +1,6 @@
-pynacl==1.2.1
-discord.py[voice]==1.2.5
+discord.py
+discord.py[voice]
+pynacl
 pip
 youtube_dl
 colorlog

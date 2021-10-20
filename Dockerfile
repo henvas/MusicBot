@@ -1,37 +1,46 @@
-FROM alpine:edge
+FROM ubuntu:18.04
+
+### setup environment
+ENV TZ=Europe/Oslo
+ENV DEBIAN_FRONTEND=noninteractive
+ENV LANG=en_US.UTF-8
+SHELL ["/bin/bash", "-c"]
+
+### Change to local ubuntu server for faster downloads
+RUN sed -i -e 's/archive.ubuntu.com/no.archive.ubuntu.com/g' /etc/apt/sources.list
+
+RUN apt-get update && apt-get install -y \
+  sudo \
+  tmux \
+  vim \
+  python3-pip \
+  build-essential \
+  unzip \
+  software-properties-common \
+  git \
+  ffmpeg \
+  libopus-dev \
+  libffi-dev \
+  libsodium-dev \
+  && rm -rf /var/lib/apt/lists/* \
+  && apt-get clean
+
+
+# Install pip dependencies
+### Install python packages
+COPY requirements.txt .
+RUN pip3 install --no-cache-dir -r ./requirements.txt
+RUN pip3 install --upgrade --force-reinstall --version websockets==4.0.1
 
 # Add project source
-WORKDIR /usr/src/musicbot
+WORKDIR /musicbot
 COPY . ./
 
-# Install dependencies
-RUN apk update \
-&& apk add --no-cache \
-  ca-certificates \
-  ffmpeg \
-  opus \
-  python3 \
-  libsodium-dev \
-\
-# Install build dependencies
-&& apk add --no-cache --virtual .build-deps \
-  gcc \
-  git \
-  libffi-dev \
-  make \
-  musl-dev \
-  python3-dev \
-\
-# Install pip dependencies
-&& pip3 install --no-cache-dir -r requirements.txt \
-&& pip3 install --upgrade --force-reinstall --version websockets==4.0.1 \
-\
-# Clean up build dependencies
-&& apk del .build-deps
+# Create volumes for audio cache, config, data and logs
+VOLUME ["/musicbot/audio_cache", "/musicbot/config", "/musicbot/data", "/musicbot/logs"]
 
-# Create volume for mapping the config
-VOLUME /usr/src/musicbot/config
+ENV PS1="(docker)${debian_chroot:+($debian_chroot)}\u@\h:\w\$ "
 
 ENV APP_ENV=docker
 
-ENTRYPOINT ["python3", "dockerentry.py"]
+#ENTRYPOINT ["python3", "dockerentry.py"]

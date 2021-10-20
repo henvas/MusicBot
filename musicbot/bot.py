@@ -1300,6 +1300,32 @@ class MusicBot(discord.Client):
             )
         return True
 
+    async def cmd_nesse(self, message, player, channel, author, permissions):
+        """
+        Usage:
+            {command_prefix}nesse
+
+        Plays nessesong
+        """
+        song_url = "https://www.youtube.com/watch?v=0RiQDCWsk-U&ab_channel=ElectrostepNetwork"
+        try:
+            await self.cmd_play(message, player, channel, author, permissions, None, song_url)
+        except Exception:
+            exceptions.CommandError(self.str.get('Nesse command failed!', 'Dunno why!'))
+
+    async def cmd_nesselist(self, message, player, channel, author, permissions):
+        """
+        Usage:
+            {command_prefix}nesselist
+
+        Plays nesselistsong
+        """
+        song_url = "https://www.youtube.com/watch?v=R8bFpBE9ubg&list=PL-UuGkJ67hVhkysSWg_LFARGEOJLQxjv1&index=1&ab_channel=AvantGardeRuss"
+        try:
+            await self.cmd_play(message, player, channel, author, permissions, None, song_url)
+        except Exception:
+            exceptions.CommandError(self.str.get('Nesselist command failed!', 'Dunno why!'))
+
     async def cmd_play(self, message, player, channel, author, permissions, leftover_args, song_url):
         """
         Usage:
