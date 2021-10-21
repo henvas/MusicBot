@@ -1,0 +1,11 @@
+[Unit]
+Description=Start discord music robot
+
+[Service]
+Type=simple
+User=pi
+ExecStart=/bin/bash -c '~/discord/MusicBot/start_bot.py'
+TimeoutSec=300
+
+[Install]
+WantedBy=multi-user.target
