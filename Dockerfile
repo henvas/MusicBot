@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 
 ### setup environment
 ENV TZ=Europe/Oslo
@@ -10,6 +10,7 @@ SHELL ["/bin/bash", "-c"]
 RUN sed -i -e 's/archive.ubuntu.com/no.archive.ubuntu.com/g' /etc/apt/sources.list
 
 RUN apt-get update && apt-get install -y \
+  ca-certificates \
   sudo \
   tmux \
   vim \
@@ -22,6 +23,7 @@ RUN apt-get update && apt-get install -y \
   libopus-dev \
   libffi-dev \
   libsodium-dev \
+  gcc \
   && rm -rf /var/lib/apt/lists/* \
   && apt-get clean
 

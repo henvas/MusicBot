@@ -1,7 +1,8 @@
 discord.py
 discord.py[voice]
 pynacl
+py-cord[voice]
 pip
-youtube_dl
+yt-dlp
 colorlog
 cffi --only-binary all; sys_platform == 'win32'
