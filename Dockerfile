@@ -31,8 +31,7 @@ RUN apt-get update && apt-get install -y \
 # Install pip dependencies
 ### Install python packages
 COPY requirements.txt .
-RUN pip3 install --no-cache-dir -r ./requirements.txt
-RUN pip3 install --upgrade --force-reinstall --version websockets==4.0.1
+RUN pip3 install --no-cache-dir --force-reinstall --upgrade -r ./requirements.txt
 
 # Add project source
 WORKDIR /musicbot

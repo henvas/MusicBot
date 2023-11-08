@@ -21,6 +21,7 @@ ytdl_format_options = {
     "default_search": "auto",
     "source_address": "0.0.0.0",
     "usenetrc": True,
+    "cookiefile": "/musicbot/cookies.txt"
 }
 
 # Fuck your useless bugreports message that gets two link embeds and confuses users
@@ -42,7 +43,7 @@ class Downloader:
 
         if download_folder:
             # print("setting template to " + os.path.join(download_folder, otmpl))
-            otmpl = ytdl_format_options["outtmpl"]
+            otmpl = "%(extractor)s-%(id)s-%(title)s.%(ext)s"
             ytdl_format_options["outtmpl"] = os.path.join(download_folder, otmpl)
 
         self.unsafe_ytdl = youtube_dl.YoutubeDL(ytdl_format_options)

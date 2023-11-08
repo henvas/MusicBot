@@ -69,7 +69,7 @@ ${DOCKER_OPTIONS} \
 "
 
 DOCKER_COMMAND="docker run"
-DOCKER_IMAGE_NAME="musicbot"
+DOCKER_IMAGE_NAME="musicbot3.8"
 
 echo ""
 set -x

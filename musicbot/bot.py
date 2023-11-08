@@ -763,6 +763,14 @@ class MusicBot(discord.Client):
 
         if not player.is_stopped and not player.is_dead:
             player.play(_continue=True)
+        #elif self._check_if_empty(player.voice_client.channel):
+        #    disconnect_msg = "{state} in {channel.guild.name}/{channel.name} {reason}"
+        #    log.warning(disconnect_msg.format(
+        #        state = "Disconnecting",
+        #        channel = player.voice_client.channel,
+        #        reason = "(empty channel and finished playing)"
+        #    ).strip())
+        #    await self.disconnect_voice_client(player.voice_client.guild)
 
     async def on_player_entry_added(self, player, playlist, entry, **_):
         log.debug("Running on_player_entry_added")
